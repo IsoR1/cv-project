@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable object-curly-newline */
 /* eslint-disable class-methods-use-this */
@@ -26,24 +28,22 @@ class Form extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
-    console.log(e);
+    const { person } = this.state;
+    this.setState({
+      info: [person],
+    });
+    console.log(this.state);
   };
 
   handleChange = (e) => {
-    // this.setState((prevState) => ({
-    //   person: {
-    //     ...prevState.person,
-    //     name: e.target.value,
-    //   },
-    // }));
-    const { value } = e.target;
-    this.setState({
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
       person: {
-        [e.target.name]: value,
+        ...prevState.person,
+        [name]: value,
       },
-    });
-    console.log(e.target.name);
+    }));
+    console.log(name, value);
   };
 
   render() {
