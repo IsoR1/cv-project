@@ -1,3 +1,5 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -8,8 +10,10 @@
 /* eslint-disable react/no-unused-state */
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import InfoResults from "./InfoResults";
 
-class Form extends Component {
+class Info extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +23,7 @@ class Form extends Component {
         number: "",
         email: "",
       },
-      info: [],
+      submitted: false,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -29,21 +33,36 @@ class Form extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { person } = this.state;
-    this.setState({
-      info: [person],
-    });
+    this.setState(
+      {
+        // info: [person],
+        // submitted: true,
+        // person: {
+        //   name: "",
+        //   number: "",
+        //   email: "",
+        // },
+
+        submitted: true,
+      },
+      () => {
+        this.props.onSubmit(person);
+      }
+    );
     console.log(this.state);
   };
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState((prevState) => ({
-      person: {
-        ...prevState.person,
-        [name]: value,
-      },
-    }));
-    console.log(name, value);
+    if (!this.state.submitted) {
+      this.setState((prevState) => ({
+        person: {
+          ...prevState.person,
+          [name]: value,
+        },
+      }));
+      console.log(name, value);
+    }
   };
 
   render() {
@@ -79,4 +98,8 @@ class Form extends Component {
   }
 }
 
-export default Form;
+Info.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default Info;
