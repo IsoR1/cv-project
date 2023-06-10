@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-return-assign */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */

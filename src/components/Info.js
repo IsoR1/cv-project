@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable comma-dangle */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -24,6 +26,7 @@ class Info extends Component {
         email: "",
       },
       submitted: false,
+      submittedData: null,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,18 +39,19 @@ class Info extends Component {
     this.setState(
       {
         // info: [person],
-        // submitted: true,
-        // person: {
-        //   name: "",
-        //   number: "",
-        //   email: "",
-        // },
-
         submitted: true,
-      },
-      () => {
-        this.props.onSubmit(person);
+        submittedData: { ...person },
+        person: {
+          name: "",
+          number: "",
+          email: "",
+        },
+
+        // submitted: true,
       }
+      // () => {
+      //   this.props.onSubmit(person);
+      // }
     );
     console.log(this.state);
   };
@@ -66,7 +70,7 @@ class Info extends Component {
   };
 
   render() {
-    const { person } = this.state;
+    const { person, submitted, submittedData } = this.state;
     return (
       <div>
         <form onSubmit={this.onSubmit}>
@@ -93,13 +97,16 @@ class Info extends Component {
           />
           <button type="submit">Submit</button>
         </form>
+        {submitted && Object.keys(person).length > 0 && (
+          <InfoResults data={submittedData} />
+        )}
       </div>
     );
   }
 }
 
-Info.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// Info.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default Info;
