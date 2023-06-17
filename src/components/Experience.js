@@ -11,18 +11,6 @@ import React, { useState, useEffect } from "react";
 import uniqId from "uniqid";
 
 function Experience() {
-  // formSubmitted: false,
-  // submittedData: [],
-  // editMode: false,
-  // jobList: [],
-  // id: uniqId(),
-  // job: {
-  //   companyName: "",
-  //   role: "",
-  //   dateStarted: "",
-  //   dateEnded: "",
-  // },
-
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState([]);
   const [jobList, setJobList] = useState([]);
@@ -33,6 +21,7 @@ function Experience() {
     role: "",
     dateStarted: "",
     dateEnded: "",
+    id: 0,
   });
 
   function handleChange(e) {
@@ -68,12 +57,11 @@ function Experience() {
       }
       return obj;
     });
-    setJobList(updatedJobs);
-    setSubmittedData(updatedJobs);
-    console.log(updatedJobs, "---", submittedData);
+    setJobList([...updatedJobs]);
+    setSubmittedData([...updatedJobs]);
   }
 
-  function onSubmit() {
+  function onSubmit(e) {
     e.preventDefault();
     const randomId = uniqId();
 
@@ -82,8 +70,8 @@ function Experience() {
       id: randomId,
     };
 
-    setJobList(...jobList, jobWithId);
-    setSubmittedData(...jobList, jobWithId),
+    setJobList([...jobList, jobWithId]);
+    setSubmittedData([...jobList, jobWithId]),
       setJob({
         companyName: "",
         role: "",
