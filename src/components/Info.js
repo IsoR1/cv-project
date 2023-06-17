@@ -20,34 +20,34 @@
 /* eslint-disable func-call-spacing */
 /* eslint-disable function-paren-newline */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import uniqId from "uniqid";
 
-class Info extends Component {
-  constructor(props) {
-    super(props);
+function Info() {
+  const [person, setPerson] = useState({
+    name: "",
+    number: "",
+    email: "",
+  });
 
-    this.state = {
-      person: {
-        name: "",
-        number: "",
-        email: "",
-      },
-      submitted: false,
-      submittedData: null,
-      editMode: false,
-      id: uniqId(),
-    };
+  useEffect(() => {});
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+  // this.state = {
+  //   person: {
+  //     name: "",
+  //     number: "",
+  //     email: "",
+  //   },
+  //   submitted: false,
+  //   submittedData: null,
+  //   editMode: false,
+  //   id: uniqId(),
+  // };
 
-  handleChange(e) {
+  function handleChange(e) {
     const { name, value } = e.target;
-    if (!this.state.submitted) {
-      this.setState((prevState) => ({
+    if (!state.submitted) {
+      setState((prevState) => ({
         person: {
           ...prevState.person,
           [name]: value,
@@ -56,10 +56,9 @@ class Info extends Component {
     }
   }
 
-  onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    const { person } = this.state;
-    this.setState({
+    setState({
       submitted: true,
       submittedData: { ...person },
       person: {
@@ -70,23 +69,21 @@ class Info extends Component {
     });
   }
 
-  switchEditState = () => {
-    const { editMode } = this.state;
+  function switchEditState() {
     if (!editMode) {
-      this.setState({
+      setState({
         editMode: true,
       });
     }
 
     if (editMode) {
-      this.setState({
+      setState({
         editMode: false,
       });
     }
-  };
+  }
 
-  handleEdit = (e) => {
-    const { submittedData, person, editMode } = this.state;
+  function handleEdit(e) {
     const { name, value } = e.target;
 
     if (!editMode) {
@@ -97,74 +94,72 @@ class Info extends Component {
       ...submittedData,
       [name]: value,
     };
-    this.setState({
+    setState({
       person: editedPerson,
       submittedData: editedPerson,
     });
     // console.log(name, value);
-    console.log(this.state);
-  };
-
-  render() {
-    const { person, submitted, submittedData, editMode } = this.state;
-    let count = 0;
-    return (
-      <div className="info-con">
-        {!submitted && (
-          <div className="info-form-div">
-            <form onSubmit={this.onSubmit}>
-              <label htmlFor="nameInput">Name</label>
-              <input
-                onChange={this.handleChange}
-                value={person.name}
-                name="name"
-                id="nameInput"
-              />
-              <label htmlFor="emailInput">Email</label>
-              <input
-                onChange={this.handleChange}
-                value={person.email}
-                name="email"
-                id="emailInput"
-              />
-              <label htmlFor="numberInput">Number</label>
-              <input
-                onChange={this.handleChange}
-                value={person.number}
-                name="number"
-                id="numberInput"
-              />
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        )}
-        <div className="info-ul-div">
-          {submitted && Object.keys(person).length > 0 && (
-            <ul className="info-ul">
-              {Object.keys(submittedData).map((key) =>
-                submittedData[key] ? (
-                  <li key={(count += 1)} className="info-li">
-                    {editMode ? (
-                      <input
-                        value={submittedData[key]}
-                        onChange={this.handleEdit}
-                        name={key}
-                      />
-                    ) : (
-                      submittedData[key]
-                    )}
-                  </li>
-                ) : null
-              )}
-              <button type="button" onClick={this.switchEditState}>
-                Edit
-              </button>
-            </ul>
-          )}
-        </div>
-      </div>
-    );
+    console.log(state);
   }
+
+  // const { person, submitted, submittedData, editMode } = this.state;
+  let count = 0;
+  return (
+    <div className="info-con">
+      {!submitted && (
+        <div className="info-form-div">
+          <form onSubmit={onSubmit}>
+            <label htmlFor="nameInput">Name</label>
+            <input
+              onChange={handleChange}
+              value={person.name}
+              name="name"
+              id="nameInput"
+            />
+            <label htmlFor="emailInput">Email</label>
+            <input
+              onChange={handleChange}
+              value={person.email}
+              name="email"
+              id="emailInput"
+            />
+            <label htmlFor="numberInput">Number</label>
+            <input
+              onChange={handleChange}
+              value={person.number}
+              name="number"
+              id="numberInput"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      )}
+      <div className="info-ul-div">
+        {submitted && Object.keys(person).length > 0 && (
+          <ul className="info-ul">
+            {Object.keys(submittedData).map((key) =>
+              submittedData[key] ? (
+                <li key={(count += 1)} className="info-li">
+                  {editMode ? (
+                    <input
+                      value={submittedData[key]}
+                      onChange={handleEdit}
+                      name={key}
+                    />
+                  ) : (
+                    submittedData[key]
+                  )}
+                </li>
+              ) : null
+            )}
+            <button type="button" onClick={switchEditState}>
+              Edit
+            </button>
+          </ul>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Info;
