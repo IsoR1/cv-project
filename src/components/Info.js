@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-class-component-methods */
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react/jsx-wrap-multilines */
@@ -29,57 +28,38 @@ function Info() {
     number: "",
     email: "",
   });
-
-  useEffect(() => {});
-
-  // this.state = {
-  //   person: {
-  //     name: "",
-  //     number: "",
-  //     email: "",
-  //   },
-  //   submitted: false,
-  //   submittedData: null,
-  //   editMode: false,
-  //   id: uniqId(),
-  // };
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
+  const [editMode, setEditMode] = useState(false);
 
   function handleChange(e) {
     const { name, value } = e.target;
-    if (!state.submitted) {
-      setState((prevState) => ({
-        person: {
-          ...prevState.person,
-          [name]: value,
-        },
+    if (!submitted) {
+      setPerson((prevState) => ({
+        ...prevState,
+        [name]: value,
       }));
     }
   }
 
   function onSubmit(e) {
     e.preventDefault();
-    setState({
-      submitted: true,
-      submittedData: { ...person },
-      person: {
-        name: "",
-        number: "",
-        email: "",
-      },
+    setSubmitted(true);
+    setSubmittedData({ ...person });
+    setPerson({
+      name: "",
+      number: "",
+      email: "",
     });
   }
 
   function switchEditState() {
     if (!editMode) {
-      setState({
-        editMode: true,
-      });
+      setEditMode(true);
     }
 
     if (editMode) {
-      setState({
-        editMode: false,
-      });
+      setEditMode(false);
     }
   }
 
@@ -89,20 +69,14 @@ function Info() {
     if (!editMode) {
       return;
     }
-    console.log(person);
     const editedPerson = {
       ...submittedData,
       [name]: value,
     };
-    setState({
-      person: editedPerson,
-      submittedData: editedPerson,
-    });
-    // console.log(name, value);
-    console.log(state);
+    setPerson(editedPerson);
+    setSubmittedData(editedPerson);
   }
 
-  // const { person, submitted, submittedData, editMode } = this.state;
   let count = 0;
   return (
     <div className="info-con">
