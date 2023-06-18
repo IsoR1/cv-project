@@ -15,7 +15,6 @@ function Experience() {
   const [submittedData, setSubmittedData] = useState([]);
   const [jobList, setJobList] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [id, setId] = useState(0);
   const [job, setJob] = useState({
     companyName: "",
     role: "",
@@ -77,6 +76,7 @@ function Experience() {
         role: "",
         dateStarted: "",
         dateEnded: "",
+        id: 0,
       });
     setFormSubmitted(true);
   }

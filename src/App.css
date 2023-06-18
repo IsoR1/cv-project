@@ -1,38 +1,102 @@
-.App {
-  text-align: center;
+:root {
+  --raisin-black: #272932;
+  --steel-blue: #4d7ea8;
+  --gray: #828489;
+  --rose-quartz: #9e90a2;
+  --powder-blue: #b6c2d9;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  height: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: var(--raisin-black);
+}
+
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: gray;
+}
+
+.info-li,
+.edu-results-li,
+.exp-results-li {
+  list-style: none;
+}
+
+.h1-header {
+  font-size: 3rem;
+  color: var(--powder-blue);
+}
+
+/* Info */
+
+.info-con {
+  display: flex;
+  justify-content: space-evenly;
+
+  flex-grow: 1;
+}
+
+.info-ul {
+  display: flex;
+  align-items: center;
+}
+
+.info-li {
+  width: 200px;
+}
+
+.info-form-div {
+  display: flex;
+  align-items: center;
+}
+
+/* Education */
+
+.edu-con {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.education-form-div {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.edu-results-ul {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Experience */
+
+.exp-con {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.exp-results-ul {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  align-items: center;
 }

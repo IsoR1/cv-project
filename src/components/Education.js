@@ -22,7 +22,6 @@ function Education() {
   const [submittedData, setSubmittedData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [id, setId] = useState(0);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -42,7 +41,6 @@ function Education() {
   }
 
   function handleEdit(e) {
-    e.preventDefault();
     const { name, value } = e.target;
     if (!editMode) {
       return;
@@ -63,7 +61,8 @@ function Education() {
   function onSubmit(e) {
     e.preventDefault();
 
-    const schoolId = setId(uniqId);
+    // const schoolId = setId(uniqId());
+    const schoolId = uniqId();
 
     const schoolWithId = {
       ...newSchool,
